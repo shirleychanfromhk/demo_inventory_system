@@ -1,0 +1,4 @@
+﻿product_id,product_name,price,quantity,weight,location
+1,mask,3,10,5,TKO
+1,mask,2,50,20,MK
+3,book,10,30,100,SSP
