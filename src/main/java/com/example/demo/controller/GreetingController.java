@@ -36,8 +36,6 @@ import com.example.demo.ProductRepository;
 public class GreetingController {
     @Autowired
     private ProductRepository productRepository;
-    
-    //List<Product> product = new ArrayList<Product>();
 
 	@RequestMapping(value="/", method = RequestMethod.GET)  
 	public String index(){  
@@ -76,16 +74,6 @@ public class GreetingController {
 	    } catch (IOException e) {
 	      throw new RuntimeException("fail to store CSV file: " + e.getMessage());
 	    }
-//		Product pen= new Product();
-//		   
-//        pen.setProductId("001");
-//        pen.setProductName("Pen");
-//        pen.setPrice(new BigDecimal("10.0"));
-//        pen.setQuantity(10);
-//        pen.setLocation("TKO");
-//        pen.setWeight(5);
-//   
-//        productRepository.save(pen);
 			productList = productRepository.findAll();
 			model.addAttribute("productList", productList);
 			
@@ -94,19 +82,6 @@ public class GreetingController {
 			return "uploadFail";
 		}
 	}
-//	
-//	@ModelAttribute("Product")
-//	public Product populateProduct() {
-//		Product product= new Product();
-//		product.setProductId("001");
-//		product.setProductName("Pen");
-//		product.setPrice(new BigDecimal("10.0"));
-//		product.setQuantity(10);
-//		product.setLocation("TKO");
-//		product.setWeight(5);
-//		
-//		return product;
-//	}
 	
 	@RequestMapping(value = "/searchInventory", method = RequestMethod.GET)
 	public ModelAndView searchInventory(){  
