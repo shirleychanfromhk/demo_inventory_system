@@ -28,12 +28,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.Inventory;
 import com.example.demo.InventoryUtil;
 import com.example.demo.Product;
 import com.example.demo.ProductRepository;
 
 @Controller
-public class GreetingController {
+public class InventoryController {
     @Autowired
     private ProductRepository productRepository;
 
@@ -99,25 +100,32 @@ public class GreetingController {
 	}
 	
 	@RequestMapping(value = "/updateInventoryForm", method = RequestMethod.GET)
-	public ModelAndView updateInventory(){  
-		return new ModelAndView("updateForm", "command", new Product());
+	public ModelAndView updateInventory(Model model){  
+		List<Product> productList = productRepository.findAll();
+		model.addAttribute("productList", productList);
+		//model.addAttribute("quantity", " ");
+
+		return new ModelAndView("updateForm", "command", new Inventory());
 	}
 	
 	@RequestMapping(value = "/updateComplete", method = RequestMethod.POST)
-	public String updateComplete(@ModelAttribute Product product, Model model) { 
-		System.out.println(product.getProductId());
-		String productId = product.getProductId();
-		int quantity = product.getQuantity();
-		String location = product.getLocation();
-		List<Product> products = productRepository.findByProductId(productId);
-		System.out.println("Product: "+ products);
-		for(Product item:products) {
-			item.setQuantity(quantity);
-			item.setLocation(location);
-			productRepository.save(item);
-		}
-		List<Product> productsNew = productRepository.findByProductId(productId);
-		model.addAttribute("product", productsNew);
+	public String updateComplete(@ModelAttribute Inventory inventory, Model model) { 
+		int inputAmount = inventory.getQuantity();
+		Product deliver = productRepository.findByProductIdAndLocation(inventory.getProductId(), inventory.getOriginalLocation());
+		Product receiver = productRepository.findByProductIdAndLocation(inventory.getProductId(), inventory.getNewLocation());
+		
+		int transferOutAmount = deliver.getQuantity() - inputAmount;
+		deliver.setQuantity(transferOutAmount);
+		productRepository.save(deliver);
+		
+		int transferInAmount = receiver.getQuantity() + inputAmount;
+		receiver.setQuantity(transferInAmount);
+		productRepository.save(receiver);
+
+		model.addAttribute("productId", receiver.getProductId());
+		model.addAttribute("productName", receiver.getProductName());
+		model.addAttribute("quantity", receiver.getQuantity());
+		model.addAttribute("location", receiver.getLocation());
 		return "updateComplete";  
 	}
 }

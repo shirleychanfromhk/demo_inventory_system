@@ -7,7 +7,7 @@
              
              <a href="${pageContext.request.contextPath}/uploadInventory">Upload inventory</a><br>
             <a href="${pageContext.request.contextPath}/searchInventory">Search inventory</a><br>
-            <a href="${pageContext.request.contextPath}/updateInventoryForm">Update inventory location</a>
+            <a href="${pageContext.request.contextPath}/updateInventoryForm">Update inventory</a>
         </div>
     </div>
 </body>

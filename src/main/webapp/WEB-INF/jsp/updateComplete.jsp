@@ -9,6 +9,7 @@
   <body>
     <h1>Update Inventory Successful</h1>
     <br/><br/>
+    <h2>Receiver's updated inventory</h2>
     <div>
       <table border="1">
         <tr>
@@ -17,17 +18,14 @@
           <th>Quantity</th>
           <th>Location</th>
         </tr>
-        <c:forEach items="${product}" var ="product">
         <tr>
-          <td>${product.productId}</td>
-          <td>${product.productName}</td>
-          <td>${product.quantity}</td>
-          <td>${product.location}</td>
+          <td>${productId}</td>
+          <td>${productName}</td>
+          <td>${quantity}</td>
+          <td>${location}</td>
         </tr>
-        </c:forEach>
       </table>
     </div>
-    <p><a href="${pageContext.request.contextPath}/searchInventory">Back to search</a></p>
     <p><a href="${pageContext.request.contextPath}/">Back to home</a></p>
   </body>
   

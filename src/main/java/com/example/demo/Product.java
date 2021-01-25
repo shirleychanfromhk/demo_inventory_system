@@ -28,7 +28,7 @@ public class Product {
     
     @Column(name="quantity", nullable = false)
     private int quantity;
-
+    
     public Product() {
     	
     }
@@ -98,5 +98,5 @@ public class Product {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-    
+
 }
