@@ -19,6 +19,7 @@
 ### function
  - Update product by id and location
  - upload complete page to show the database after change
+ - Show current inventory on update form page
  
 ###Next release 
  - Modify UI by React.js
